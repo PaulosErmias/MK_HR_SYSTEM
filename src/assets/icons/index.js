@@ -1,3 +1,6 @@
+import DecreaseSvg from "./Dashboard/DecreaseSvg.jsx";
+import FilterSortSvg from "./Dashboard/FilterSortSvg.jsx";
+import IncreaseSvg from "./Dashboard/IncreaseSvg.jsx";
 import AvatarSvg from "./nav/Avatar.jsx";
 import NotificationSvg from "./nav/Notification.jsx";
 import SearchSvg from "./nav/Search.jsx";
@@ -19,7 +22,10 @@ export {
   AttendanceSvg,
   AvatarSvg,
   DashboardSvg,
+  DecreaseSvg,
   DepartmentSvg,
+  FilterSortSvg,
+  IncreaseSvg,
   LeaveSvg,
   ManageSvg,
   MoreSvg,
@@ -28,8 +34,8 @@ export {
   ProfileSvg,
   ReportSvg,
   SearchSvg,
-  SetUpSvg,
   SettingSvg,
+  SetUpSvg,
   TrainingSvg,
   VacancySvg,
 };
