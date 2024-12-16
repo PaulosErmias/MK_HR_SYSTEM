@@ -3,11 +3,11 @@ import { logoPng } from "../assets/img";
 import Search from "./ui/Search";
 function Navbar() {
   return (
-    <div className="flex items-center justify-between py-2 bg-primary h-[12vh]">
+    <div className="flex items-center justify-between bg-primary h-[10vh]">
       <div className="flex items-center justify-center">
         <div className="w-64 pl-16">
           <img
-            className="w-20"
+            className="w-[4.5rem]"
             src={logoPng}
             alt="The logo of Mahibere Kidusan"
           />

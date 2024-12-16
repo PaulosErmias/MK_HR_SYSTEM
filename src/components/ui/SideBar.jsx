@@ -149,7 +149,7 @@ function SideBarEl({ item, index }) {
             item.current || isHovered
               ? "border-l-4 border-primary text-primary"
               : "text-gray-700 hover:text-primary",
-            "pl-6 group flex gap-x-3 text-sm font-semibold leading-6 "
+            "pl-6 group flex gap-x-3 text-sm font-semibold leading-6 items-center"
           )}
         >
           {/* <img

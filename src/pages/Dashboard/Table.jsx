@@ -75,10 +75,6 @@ const people = [
   // More people...
 ];
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
-
 export default function Table() {
   return (
     <div className="px-4 sm:px-6 lg:px-8 rounded-md">
@@ -147,22 +143,22 @@ export default function Table() {
               <tbody>
                 {people.map((person, personIdx) => (
                   <tr key={person.age}>
-                    <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8">
+                    <td className="whitespace-nowrap py-3.5 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8">
                       {person.name}
                     </td>
-                    <td className="hidden whitespace-nowrap px-3 py-4 text-sm text-gray-500 sm:table-cell">
+                    <td className="hidden whitespace-nowrap px-3 py-3 text-sm text-gray-500 sm:table-cell">
                       {person.department}
                     </td>
-                    <td className="hidden whitespace-nowrap px-3 py-4 text-sm text-gray-500 lg:table-cell">
+                    <td className="hidden whitespace-nowrap px-3 py-3 text-sm text-gray-500 lg:table-cell">
                       {person.age}
                     </td>
-                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                    <td className="whitespace-nowrap px-3 py-3 text-sm text-gray-500">
                       {person.mobile}
                     </td>
-                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                    <td className="whitespace-nowrap px-3 py-3 text-sm text-gray-500">
                       {person.employeeDate}
                     </td>
-                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                    <td className="whitespace-nowrap px-3 py-3 text-sm text-gray-500">
                       <div className="px-4 bg-primary text-slate-lght w-fit rounded-md">
                         {person.status}
                       </div>

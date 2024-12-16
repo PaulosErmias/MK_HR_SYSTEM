@@ -3,9 +3,9 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 function EmployeeInfo({ employeeStat }) {
-  console.log(employeeStat);
+  // console.log(employeeStat);
   return (
-    <div className="flex w-fit shadow-even rounded-md py-4 px-4 bg-white">
+    <div className="flex  shadow-even rounded-md py-6 px-6 bg-white">
       <div className="flex w-fit flex-col justify-between gap-3 px-2">
         <div className="flex items-center justify-between gap-2">
           <h2 className="font-bold text-[15px] text-[#343434] leading-5">

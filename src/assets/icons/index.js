@@ -17,7 +17,8 @@ import SettingSvg from "./sideBar/SettingSvg.jsx";
 import SetUpSvg from "./sideBar/SetupSvg.jsx";
 import TrainingSvg from "./sideBar/TrainingSvg.jsx";
 import VacancySvg from "./sideBar/VacancySvg.jsx";
-
+import FemaleSvg from "./Dashboard/FemaleSvg.jsx";
+import MaleSvg from "./Dashboard/MaleSvg.jsx";
 export {
   AttendanceSvg,
   AvatarSvg,
@@ -38,4 +39,6 @@ export {
   SetUpSvg,
   TrainingSvg,
   VacancySvg,
+  FemaleSvg,
+  MaleSvg,
 };

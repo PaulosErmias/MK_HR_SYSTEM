@@ -1,6 +1,4 @@
 import Navbar from "./components/Navbar.jsx";
-import AccountProfile from "./components/ui/AccountProfile.jsx";
-import Search from "./components/ui/Search.jsx";
 import SideBar from "./components/ui/SideBar.jsx";
 import Dashboard from "./pages/Dashboard/Dashboard.jsx";
 
