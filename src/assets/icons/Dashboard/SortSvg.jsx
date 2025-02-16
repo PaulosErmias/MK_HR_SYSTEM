@@ -1,7 +1,7 @@
 import React from "react";
 
 function SortSvg({ direction = "asc" }) {
-  console.log(direction);
+  // console.log(direction);
   const icon =
     direction === "asc" ? (
       <svg
