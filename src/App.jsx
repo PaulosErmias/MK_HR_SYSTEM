@@ -4,7 +4,6 @@ import Navbar from "./components/Navbar.jsx";
 import AccountProfile from "./components/ui/AccountProfile.jsx";
 import Search from "./components/ui/Search.jsx";
 import SideBar from "./components/ui/SideBar.jsx";
-
 export default function App() {
   // sample fetch
   useEffect(() => {
