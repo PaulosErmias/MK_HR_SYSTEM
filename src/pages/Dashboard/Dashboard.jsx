@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FemaleSvg, MaleSvg } from "../../assets/icons";
 import BarChart from "./BarChart";
 import DoughnutChart from "./DoughnutChart";
@@ -34,7 +34,7 @@ const employeeStats = [
 const data = [
   { id: 1, department: "Technology", quantity: "3" },
   { id: 2, department: "Construction", quantity: "2" },
-  { id: 3, department: "Social", quantity: "3" },
+  { id: 3, department: "Social", quantity: "4" },
   { id: 4, department: "Finance", quantity: "1" },
 ];
 function Dashboard() {
@@ -53,7 +53,7 @@ function Dashboard() {
     };
   });
   const [doughnutData, setDoughnutData] = useState({
-    labels: ["Male", "Fale"],
+    labels: ["Male", "Female"],
     datasets: [
       {
         label: "Employee Composition",
@@ -98,6 +98,16 @@ function Dashboard() {
     },
     cutout: "65%",
   };
+
+  useEffect(() => {
+    async function fetchRoles() {
+      const res = await fetch(
+        `https://mkhr-backend.onrender.com/api/v1.0.0/roles`
+      );
+      const data = await res.json();
+      console.log(data);
+    }
+  }, []);
   return (
     <div className="w-min mx-auto bg-[#F8FAFB] z-0 h-full px-10 py-4 flex flex-col gap-4">
       <div className="flex z-10 w-full items-center justify-between ">

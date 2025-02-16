@@ -1,6 +1,7 @@
 import DecreaseSvg from "./Dashboard/DecreaseSvg.jsx";
 import FilterSortSvg from "./Dashboard/FilterSortSvg.jsx";
 import IncreaseSvg from "./Dashboard/IncreaseSvg.jsx";
+import SortSvg from "./Dashboard/SortSvg.jsx";
 import AvatarSvg from "./nav/Avatar.jsx";
 import NotificationSvg from "./nav/Notification.jsx";
 import SearchSvg from "./nav/Search.jsx";
@@ -41,4 +42,5 @@ export {
   VacancySvg,
   FemaleSvg,
   MaleSvg,
+  SortSvg,
 };

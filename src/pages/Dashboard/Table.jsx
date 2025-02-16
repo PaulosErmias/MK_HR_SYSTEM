@@ -1,81 +1,127 @@
-import { FilterSortSvg } from "../../assets/icons";
+import { useState } from "react";
+import { FilterSortSvg, SortSvg } from "../../assets/icons";
+
 const people = [
   {
-    name: "Abebe Kebede",
-    department: "Software Development",
-    age: "22",
-    mobile: "0909156085",
-    employeeDate: "10/10/2022",
-    status: "Active",
+    EMP_NAME: "Abebe Kebede",
+    DEPT: "Software Development",
+    AGE: "22",
+    MOBILE: "0909156085",
+    EMP_DATE: "10/10/2022",
+    STATUS: "Active",
+    id: "0001",
   },
   {
-    name: "Abebech Kebede",
-    department: "Finance",
-    age: "24",
-    mobile: "0912312121",
-    employeeDate: "09/07/2021",
-    status: "Active",
+    EMP_NAME: "Abebech Kebede",
+    DEPT: "Finance",
+    AGE: "24",
+    MOBILE: "0912312121",
+    EMP_DATE: "09/07/2021",
+    STATUS: "Active",
+    id: "0002",
   },
   {
-    name: "Abeba Kebede",
-    department: "Software Development",
-    age: "25",
-    mobile: "0921221343",
-    employeeDate: "05/08/2023",
-    status: "Active",
+    EMP_NAME: "Abeba Kebede",
+    DEPT: "Software Development",
+    AGE: "25",
+    MOBILE: "0921221343",
+    EMP_DATE: "05/08/2023",
+    STATUS: "Active",
+    id: "0003",
   },
   {
-    name: "Abebe Kebede",
-    department: "Software Development",
-    age: "22",
-    mobile: "0909156085",
-    employeeDate: "10/10/2022",
-    status: "Active",
+    EMP_NAME: "Abebe Kebede",
+    DEPT: "Software Development",
+    AGE: "22",
+    MOBILE: "0909156085",
+    EMP_DATE: "10/10/2022",
+    STATUS: "Active",
+    id: "0004",
   },
   {
-    name: "Abebech Kebede",
-    department: "Finance",
-    age: "24",
-    mobile: "0912312121",
-    employeeDate: "09/07/2021",
-    status: "Active",
+    EMP_NAME: "Abebech Kebede",
+    DEPT: "Finance",
+    AGE: "24",
+    MOBILE: "0912312121",
+    EMP_DATE: "09/07/2021",
+    STATUS: "Active",
+    id: "0005",
   },
   {
-    name: "Abeba Kebede",
-    department: "Software Development",
-    age: "25",
-    mobile: "0921221343",
-    employeeDate: "05/08/2023",
-    status: "Active",
+    EMP_NAME: "Abeba Kebede",
+    DEPT: "Software Development",
+    AGE: "25",
+    MOBILE: "0921221343",
+    EMP_DATE: "05/08/2023",
+    STATUS: "Active",
+    id: "0006",
   },
   {
-    name: "Abebe Kebede",
-    department: "Software Development",
-    age: "22",
-    mobile: "0909156085",
-    employeeDate: "10/10/2022",
-    status: "Active",
+    EMP_NAME: "Abebe Kebede",
+    DEPT: "Software Development",
+    AGE: "22",
+    MOBILE: "0909156085",
+    EMP_DATE: "10/10/2022",
+    STATUS: "Active",
+    id: "0007",
   },
   {
-    name: "Abebech Kebede",
-    department: "Finance",
-    age: "24",
-    mobile: "0912312121",
-    employeeDate: "09/07/2021",
-    status: "Active",
+    EMP_NAME: "Abebech Kebede",
+    DEPT: "Finance",
+    AGE: "24",
+    MOBILE: "0912312121",
+    EMP_DATE: "09/07/2021",
+    STATUS: "Active",
+    id: "0008",
   },
   {
-    name: "Abeba Kebede",
-    department: "Software Development",
-    age: "25",
-    mobile: "0921221343",
-    employeeDate: "05/08/2023",
-    status: "Active",
+    EMP_NAME: "Abeba Kebede",
+    DEPT: "Software Development",
+    AGE: "25",
+    MOBILE: "0921221343",
+    EMP_DATE: "05/08/2023",
+    STATUS: "Active",
+    id: "0009",
   },
   // More people...
 ];
+const headers = [
+  { id: "1", key: "EMP_NAME", label: "Employee Name" },
+  { id: "2", key: "DEPT", label: "Department" },
+  { id: "3", key: "AGE", label: "Age" },
+  { id: "4", key: "MOBILE", label: "Mobile" },
+  { id: "5", key: "EMP_DATE", label: "Employee Date" },
+  { id: "6", key: "STATUS", label: "Status" },
+];
+
+function classNames(...classes) {
+  return classes.filter(Boolean).join(" ");
+}
 
 export default function Table() {
+  const [sort, setSort] = useState({ sortedKey: "EMP_NAME", drxn: "asc" });
+
+  function handleHeaderClick(header) {
+    setSort({
+      sortedKey: header.key,
+      drxn:
+        sort.sortedKey === header.key
+          ? sort.drxn === "asc"
+            ? "desc"
+            : "asc"
+          : "desc",
+    });
+  }
+
+  function getSortedArray(arr) {
+    if (sort.drxn === "asc") {
+      return arr.sort((a, b) =>
+        a[sort.sortedKey] > b[sort.sortedKey] ? 1 : -1
+      );
+    }
+    return arr.sort((a, b) => (a[sort.sortedKey] > b[sort.sortedKey] ? -1 : 1));
+  }
+
   return (
     <div className="px-4 sm:px-6 lg:px-8 rounded-md">
       <div className="sm:flex sm:items-center">
@@ -100,67 +146,59 @@ export default function Table() {
         <div className="-mx-4 -my-2 sm:-mx-6 lg:-mx-8">
           <div className="inline-block min-w-full pt-2 align-middle">
             <table className="min-w-full border-separate border-spacing-0">
-              <thead className="bg-gray-lght">
+              <thead className="z-50">
                 <tr>
-                  <th
-                    scope="col"
-                    className="sticky top-0 z-10 border-b border-gray-300 bg-white bg-opacity-75 py-3.5 pl-4 pr-3 text-left text-sm font-bold text-gray-900 backdrop-blur backdrop-filter sm:pl-6 lg:pl-8"
-                  >
-                    Employee Name
-                  </th>
-                  <th
-                    scope="col"
-                    className="sticky top-0 z-10 hidden border-b border-gray-300 bg-white bg-opacity-75 px-3 py-3.5 text-left text-sm font-bold text-green-dark backdrop-blur backdrop-filter sm:table-cell"
-                  >
-                    Department
-                  </th>
-                  <th
-                    scope="col"
-                    className="sticky top-0 z-10 hidden border-b border-gray-300 bg-white bg-opacity-75 px-3 py-3.5 text-left text-sm font-bold text-green-dark backdrop-blur backdrop-filter lg:table-cell"
-                  >
-                    Age
-                  </th>
-                  <th
-                    scope="col"
-                    className="sticky top-0 z-10 border-b border-gray-300 bg-white bg-opacity-75 px-3 py-3.5 text-left text-sm font-bold text-green-dark backdrop-blur backdrop-filter"
-                  >
-                    Mobile
-                  </th>
-                  <th
-                    scope="col"
-                    className="sticky top-0 z-10 border-b border-gray-300 bg-white bg-opacity-75 px-3 py-3.5 text-left text-sm font-bold text-green-dark backdrop-blur backdrop-filter"
-                  >
-                    Employee Date
-                  </th>
-                  <th
-                    scope="col"
-                    className="sticky top-0 z-10 border-b border-gray-300 bg-white bg-opacity-75 px-5 py-3.5 text-left text-sm font-bold text-green-dark backdrop-blur backdrop-filter"
-                  >
-                    Status
-                  </th>
+                  {headers.map((header, i) => (
+                    <th
+                      scope="col"
+                      className={classNames(
+                        "sticky top-0 border-b border-gray-300 bg-gray-lght py-3.5 px-3 text-left text-sm font-bold text-green-dark cursor-pointer",
+                        i === 0 && "sm:pl-6 lg:pl-8",
+                        i === 1 && "sm:table-cell",
+                        i === 2 && "lg:table-cell"
+                      )}
+                      key={header.id}
+                      onClick={() => handleHeaderClick(header)}
+                    >
+                      <div className="flex items-center gap-2 w-full">
+                        {header.label}
+                        <span
+                          className={classNames(
+                            `${
+                              sort.sortedKey === header.key
+                                ? "opacity-100"
+                                : "opacity-0"
+                            }`
+                          )}
+                        >
+                          <SortSvg direction={sort.drxn} />
+                        </span>
+                      </div>
+                    </th>
+                  ))}
                 </tr>
               </thead>
-              <tbody>
-                {people.map((person, personIdx) => (
-                  <tr key={person.age}>
+              <tbody className="-z-50">
+                {getSortedArray(people).map((person, personIdx) => (
+                  <tr key={person.id}>
                     <td className="whitespace-nowrap py-3.5 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8">
-                      {person.name}
+                      {person.EMP_NAME}
                     </td>
-                    <td className="hidden whitespace-nowrap px-3 py-3 text-sm text-gray-500 sm:table-cell">
-                      {person.department}
+                    <td className=" whitespace-nowrap px-3 py-3 text-sm text-gray-500 sm:table-cell">
+                      {person.DEPT}
                     </td>
-                    <td className="hidden whitespace-nowrap px-3 py-3 text-sm text-gray-500 lg:table-cell">
-                      {person.age}
-                    </td>
-                    <td className="whitespace-nowrap px-3 py-3 text-sm text-gray-500">
-                      {person.mobile}
+                    <td className=" whitespace-nowrap px-3 py-3 text-sm text-gray-500 lg:table-cell">
+                      {person.AGE}
                     </td>
                     <td className="whitespace-nowrap px-3 py-3 text-sm text-gray-500">
-                      {person.employeeDate}
+                      {person.MOBILE}
+                    </td>
+                    <td className="whitespace-nowrap px-3 py-3 text-sm text-gray-500">
+                      {person.EMP_DATE}
                     </td>
                     <td className="whitespace-nowrap px-3 py-3 text-sm text-gray-500">
                       <div className="px-4 bg-primary text-slate-lght w-fit rounded-md">
-                        {person.status}
+                        {person.STATUS}
                       </div>
                     </td>
                   </tr>
