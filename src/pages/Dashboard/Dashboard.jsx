@@ -109,7 +109,7 @@ function Dashboard() {
     }
   }, []);
   return (
-    <div className="w-min mx-auto bg-[#F8FAFB] z-0 h-full px-10 py-4 flex flex-col gap-4">
+    <div className="w-min mx-auto bg-[#F8FAFB] z-0 h-full px-10 py-4 flex flex-col gap-4 fixed">
       <div className="flex z-10 w-full items-center justify-between ">
         {employeeStats.map((employeeStat) => {
           return (
@@ -120,7 +120,7 @@ function Dashboard() {
           );
         })}
       </div>
-      <div className="h-[16.4rem] pb-3 w-full rounded-md overflow-scroll scrollbar-hide shadow-even pt-3 mt-1">
+      <div className="h-[16.4rem] w-full rounded-md overflow-scroll scrollbar-hide shadow-even">
         <Table />
       </div>
       <div className="flex h-[15.5rem] mt-1 gap-12">

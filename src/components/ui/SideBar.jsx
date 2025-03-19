@@ -99,7 +99,7 @@ function classNames(...classes) {
 
 export default function SideBar() {
   return (
-    <div className="shadow-2xl border-[#E8E8E8] bg-white w-70 h-full">
+    <div className="shadow-2xl border-[#E8E8E8] bg-white w-70 h-full overflow-hidden">
       <div className="flex flex-col  pb-5">
         <div className="flex h-24 shrink-0 items-start pt-4">
           <AccountProfile />
