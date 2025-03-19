@@ -123,14 +123,12 @@ export default function Table() {
   }
 
   return (
-    <div className="px-4 sm:px-6 lg:px-8 rounded-md">
-      <div className="sm:flex sm:items-center">
+    <div className="rounded-md px-4 sm:px-6 lg:px-8 bg-white">
+      <div className="sm:flex sm:items-center sticky top-0 z-10 bg-white h-full py-3">
         <div className="sm:flex-auto items-center justify-center">
-          <h1 className="text-base text-gray-900 font-bold mt-2">
-            Employee Status
-          </h1>
+          <h1 className="text-base text-gray-900 font-bold">Employee Status</h1>
         </div>
-        <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none bg-slate-lght px-2  rounded-lg">
+        <div className=" sm:ml-16 sm:mt-0 sm:flex-none bg-slate-lght px-2  rounded-lg">
           <button
             type="button"
             className="w-32 font-bold py-1 text-sm text-orange-lght flex gap-2 items-center justify-center"
@@ -142,17 +140,17 @@ export default function Table() {
           </button>
         </div>
       </div>
-      <div className="mt-4 flow-root">
-        <div className="-mx-4 -my-2 sm:-mx-6 lg:-mx-8">
-          <div className="inline-block min-w-full pt-2 align-middle">
+      <div className="flow-root">
+        <div className="-mx-4 sm:-mx-6 lg:-mx-8 -my-3">
+          <div className="inline-block min-w-full pt-3 align-middle">
             <table className="min-w-full border-separate border-spacing-0">
-              <thead className="z-50">
+              <thead className="z-50 bg-gray-lght sticky top-[3.25rem] ">
                 <tr>
                   {headers.map((header, i) => (
                     <th
                       scope="col"
                       className={classNames(
-                        "sticky top-0 border-b border-gray-300 bg-gray-lght py-3.5 px-3 text-left text-sm font-bold text-green-dark cursor-pointer",
+                        " border-b border-gray-300 py-3.5 text-left text-sm font-bold  cursor-pointer",
                         i === 0 && "sm:pl-6 lg:pl-8",
                         i === 1 && "sm:table-cell",
                         i === 2 && "lg:table-cell"
@@ -184,19 +182,19 @@ export default function Table() {
                     <td className="whitespace-nowrap py-3.5 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8">
                       {person.EMP_NAME}
                     </td>
-                    <td className=" whitespace-nowrap px-3 py-3 text-sm text-gray-500 sm:table-cell">
+                    <td className=" whitespace-nowrap px-3 py-4 text-sm text-gray-500 sm:table-cell">
                       {person.DEPT}
                     </td>
-                    <td className=" whitespace-nowrap px-3 py-3 text-sm text-gray-500 lg:table-cell">
+                    <td className=" whitespace-nowrap px-3 py-4 text-sm text-gray-500 lg:table-cell">
                       {person.AGE}
                     </td>
-                    <td className="whitespace-nowrap px-3 py-3 text-sm text-gray-500">
+                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                       {person.MOBILE}
                     </td>
-                    <td className="whitespace-nowrap px-3 py-3 text-sm text-gray-500">
+                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                       {person.EMP_DATE}
                     </td>
-                    <td className="whitespace-nowrap px-3 py-3 text-sm text-gray-500">
+                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                       <div className="px-4 bg-primary text-slate-lght w-fit rounded-md">
                         {person.STATUS}
                       </div>
