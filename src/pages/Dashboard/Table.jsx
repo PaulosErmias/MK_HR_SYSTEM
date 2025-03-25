@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { FilterSortSvg, SortSvg } from "../../assets/icons";
+import { useEmployeesQuery } from "../../hooks/useEmployeesQuery";
 
 const people = [
   {
@@ -100,7 +101,7 @@ function classNames(...classes) {
 
 export default function Table() {
   const [sort, setSort] = useState({ sortedKey: "EMP_NAME", drxn: "asc" });
-
+  const { data: employeeRes, isLoading, isError, error } = useEmployeesQuery();
   function handleHeaderClick(header) {
     setSort({
       sortedKey: header.key,

@@ -3,13 +3,10 @@ import { FemaleSvg, MaleSvg } from "../../assets/icons";
 import { useDepartmentsQuery } from "../../hooks/useDepartmentsQuery";
 import { useEmployeesQuery } from "../../hooks/useEmployeesQuery";
 import useFetch from "../../hooks/useFetch";
-import { getDepartmentEmployeeCounts } from "../../utils/getDepartmentEmployeeCounts";
-import { getGenderPercentage } from "../../utils/getGenderPercentage";
 import BarChart from "./BarChart";
 import DoughnutChart from "./DoughnutChart";
 import EmployeeInfo from "./EmployeeInfo";
 import Table from "./Table";
-
 const employeeStats = [
   {
     title: "Total Employees",
@@ -44,68 +41,53 @@ const data = [
   { id: 4, department: "Finance", quantity: "1" },
 ];
 
-function Dashboard() {
-  const {
-    data: departmentsRes,
-    isLoading: isLoadingDept,
-    isError: isErrorDept,
-    error: errDept,
-  } = useDepartmentsQuery();
-
-  const {
-    data: employeesRes,
-    isLoading: isLoadingEmp,
-    isError: isErrEmp,
-    error: errEmp,
-  } = useEmployeesQuery();
-
-  // Initialize with default structure
-  const [userData, setUserData] = useState({
-    labels: [],
-    datasets: [
-      {
-        label: "Number of Departments",
-        data: [],
-        backgroundColor: "#3e604c",
-        barPercentage: 1,
-        categoryPercentage: 0.57,
-      },
-    ],
+function getDepartmentEmployeeCounts(employees, departments) {
+  const counts = {};
+  employees.forEach((employee) => {
+    counts[employee.deptcode] = (counts[employee.deptcode] || 0) + 1;
   });
+  return departments.map((dept) => counts[dept.deptcode] || 0);
+}
 
-  const [empCount, setEmpCount] = useState([]);
+function Dashboard() {
+  // const { Depts, loadDept, errorDept } = useFetch("/v1.0.0/departments", "GET");
+  // const { employees, loadEmp, errEmp } = useFetch("/employees", "GET");
+  const {
+    data: departments,
+    isLoadingDept,
+    isErrorDept,
+    errorDept,
+  } = useDepartmentsQuery();
+  const {
+    data: employees,
+    isLoadingEmp,
+    isErrorEmp,
+    errorEmp,
+  } = useEmployeesQuery();
+  const departmentsArr = departments?.data?.data;
+  const employeesArr = employees?.data?.body;
 
-  useEffect(() => {
-    if (departmentsRes?.data?.data && employeesRes?.data?.body) {
-      setEmpCount(() =>
-        getDepartmentEmployeeCounts(
-          employeesRes?.data?.body,
-          departmentsRes?.data?.data.map((dept) => dept.deptcode)
-        )
-      );
-    }
-  }, [departmentsRes, employeesRes]);
-
-  // Update when data loads
-  useEffect(() => {
-    if (departmentsRes?.data?.data) {
-      setUserData((prev) => ({
-        ...prev,
-        labels: departmentsRes.data.data.map((dept) => dept.description),
-        datasets: prev.datasets.map((dataset) => ({
-          ...dataset,
-          data: data.map((d) => d.quantity),
-        })),
-      }));
-    }
-  }, [departmentsRes]);
-
+  const [userData, setUserData] = useState(function () {
+    return {
+      labels: departmentsArr?.map((dept) => dept.description),
+      datasets: [
+        {
+          label: "Number of Departments",
+          data: data.map((data) => data.quantity),
+          // data: getDepartmentEmployeeCounts(employeesArr, departmentsArr),
+          backgroundColor: "#3e604c",
+          barPercentage: 1,
+          categoryPercentage: 0.57,
+        },
+      ],
+    };
+  });
   const [doughnutData, setDoughnutData] = useState({
     labels: ["Male", "Female"],
     datasets: [
       {
         label: "Employee Composition",
-        data: [], // Female: 35%, Male: 65%
+        data: [65, 35], // Female: 35%, Male: 65%
         backgroundColor: ["#BB7622", "#E6D02A"],
         borderWidth: [0, 8], // Set border thickness for inner and outer arcs
         borderColor: ["#BB7622", "#E6D02A"],
@@ -113,40 +95,6 @@ function Dashboard() {
       },
     ],
   });
-
-  /*
-useEffect(() => {
-    if (departmentsRes?.data?.data) {
-      setUserData((prev) => ({
-        ...prev,
-        labels: departmentsRes.data.data.map((dept) => dept.description),
-        datasets: prev.datasets.map((dataset) => ({
-          ...dataset,
-          data: data.map((d) => d.quantity),
-        })),
-      }));
-    }
-    // console.log(employeesRes?.data?.body);
-  }, [departmentsRes]);
-*/
-
-  useEffect(() => {
-    // Verify the correct data path - add console.log here
-    console.log("Employees response:", employeesRes?.data?.body);
-
-    if (employeesRes?.data?.body) {
-      // Changed from .body to .data
-      const percentages = getGenderPercentage(employeesRes?.data?.body);
-      console.log("percentages" + percentages);
-      setDoughnutData((prev) => ({
-        ...prev,
-        datasets: prev.datasets.map((dataset) => ({
-          ...dataset, // Preserve all existing properties
-          data: percentages,
-        })),
-      }));
-    }
-  }, [employeesRes]);
 
   const chartOptions = {
     aspectRatio: 1,
@@ -181,6 +129,16 @@ useEffect(() => {
     cutout: "65%",
   };
 
+  // useEffect(() => {
+  //   async function fetchRoles() {
+  //     const res = await fetch(
+  //       `https://mkhr-backend.onrender.com/api/v1.0.0/roles`
+  //     );
+  //     const data = await res.json();
+  //     console.log(data);
+  //   }
+  // }, []);
+
   return (
     <div className="w-min mx-auto bg-[#F8FAFB] z-0 h-full px-10 py-4 flex flex-col gap-4 fixed">
       <div className="flex z-10 w-full items-center justify-between ">
@@ -211,11 +169,11 @@ useEffect(() => {
           </div>
           <div className="bg-white z-30 w-fit rounded-md p-1 flex items-center justify-center gap-2 shadow-xl absolute bottom-16 right-24">
             <MaleSvg />
-            <p className="text-sm">{doughnutData.datasets[0].data[0]}%</p>
+            <p className="text-sm">65%</p>
           </div>
-          <div className="bg-white z-30 w-fit rounded-md p-1 flex items-center justify-center gap-2 shadow-xl absolute top-20 left-[5.8rem]">
+          <div className="bg-white z-30 w-fit rounded-md p-1 flex items-center justify-center gap-2 shadow-xl absolute top-20 left-[5.5rem]">
             <FemaleSvg />
-            <p className="text-sm">{doughnutData.datasets[0].data[1]}%</p>
+            <p className="text-sm">35%</p>
           </div>
         </div>
 

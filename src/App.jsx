@@ -1,6 +1,6 @@
-import { useEffect } from "react";
+// import { useEffect, useState } from "react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import instance from "./api/axiosConfig";
+// import instance from "./api/axiosConfig";
 import Navbar from "./components/Navbar.jsx";
 import SideBar from "./components/ui/SideBar.jsx";
 import Dashboard from "./pages/Dashboard/Dashboard.jsx";
@@ -11,7 +11,7 @@ export default function App() {
   // useEffect(() => {
   //   async function fetchDepartments() {
   //     try {
-  //       const res = await instance.get("/departments");
+  //       const res = await instance.get("/v1.0.0/departments");
   //       console.log(res.data);
   //     } catch (error) {
   //       console.error("Error fetching departments:", error);
@@ -19,6 +19,7 @@ export default function App() {
   //   }
   //   fetchDepartments();
   // }, []);
+
   return (
     <Router>
       <Routes>

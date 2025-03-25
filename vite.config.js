@@ -10,7 +10,7 @@ export default defineConfig({
       "/api": {
         target: "https://mkhr-backend.onrender.com",
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, "/api/v1.0.0"),
+        rewrite: (path) => path.replace(/^\/api/, "/api"),
       },
     },
   },
