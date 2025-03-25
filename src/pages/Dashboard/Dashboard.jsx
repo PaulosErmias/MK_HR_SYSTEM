@@ -132,7 +132,7 @@ useEffect(() => {
 
   useEffect(() => {
     // Verify the correct data path - add console.log here
-    console.log("Employees response:", employeesRes?.data?.body);
+    // console.log("Employees response:", employeesRes?.data?.body);
 
     if (employeesRes?.data?.body) {
       // Changed from .body to .data

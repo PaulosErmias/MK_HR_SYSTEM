@@ -1,98 +1,100 @@
 import { useState } from "react";
 import { FilterSortSvg, SortSvg } from "../../assets/icons";
 import { useEmployeesQuery } from "../../hooks/useEmployeesQuery";
+import { calculateEmployeeAges } from "../../utils/calculateEmployeeAges";
+import { formatDateToDMY } from "../../utils/formatDateToDMY";
 
-const people = [
-  {
-    EMP_NAME: "Abebe Kebede",
-    DEPT: "Software Development",
-    AGE: "22",
-    MOBILE: "0909156085",
-    EMP_DATE: "10/10/2022",
-    STATUS: "Active",
-    id: "0001",
-  },
-  {
-    EMP_NAME: "Abebech Kebede",
-    DEPT: "Finance",
-    AGE: "24",
-    MOBILE: "0912312121",
-    EMP_DATE: "09/07/2021",
-    STATUS: "Active",
-    id: "0002",
-  },
-  {
-    EMP_NAME: "Abeba Kebede",
-    DEPT: "Software Development",
-    AGE: "25",
-    MOBILE: "0921221343",
-    EMP_DATE: "05/08/2023",
-    STATUS: "Active",
-    id: "0003",
-  },
-  {
-    EMP_NAME: "Abebe Kebede",
-    DEPT: "Software Development",
-    AGE: "22",
-    MOBILE: "0909156085",
-    EMP_DATE: "10/10/2022",
-    STATUS: "Active",
-    id: "0004",
-  },
-  {
-    EMP_NAME: "Abebech Kebede",
-    DEPT: "Finance",
-    AGE: "24",
-    MOBILE: "0912312121",
-    EMP_DATE: "09/07/2021",
-    STATUS: "Active",
-    id: "0005",
-  },
-  {
-    EMP_NAME: "Abeba Kebede",
-    DEPT: "Software Development",
-    AGE: "25",
-    MOBILE: "0921221343",
-    EMP_DATE: "05/08/2023",
-    STATUS: "Active",
-    id: "0006",
-  },
-  {
-    EMP_NAME: "Abebe Kebede",
-    DEPT: "Software Development",
-    AGE: "22",
-    MOBILE: "0909156085",
-    EMP_DATE: "10/10/2022",
-    STATUS: "Active",
-    id: "0007",
-  },
-  {
-    EMP_NAME: "Abebech Kebede",
-    DEPT: "Finance",
-    AGE: "24",
-    MOBILE: "0912312121",
-    EMP_DATE: "09/07/2021",
-    STATUS: "Active",
-    id: "0008",
-  },
-  {
-    EMP_NAME: "Abeba Kebede",
-    DEPT: "Software Development",
-    AGE: "25",
-    MOBILE: "0921221343",
-    EMP_DATE: "05/08/2023",
-    STATUS: "Active",
-    id: "0009",
-  },
-  // More people...
-];
+// const people = [
+//   {
+//     EMP_NAME: "Abebe Kebede",
+//     DEPT: "Software Development",
+//     AGE: "22",
+//     MOBILE: "0909156085",
+//     EMP_DATE: "10/10/2022",
+//     STATUS: "Active",
+//     id: "0001",
+//   },
+//   {
+//     EMP_NAME: "Abebech Kebede",
+//     DEPT: "Finance",
+//     AGE: "24",
+//     MOBILE: "0912312121",
+//     EMP_DATE: "09/07/2021",
+//     STATUS: "Active",
+//     id: "0002",
+//   },
+//   {
+//     EMP_NAME: "Abeba Kebede",
+//     DEPT: "Software Development",
+//     AGE: "25",
+//     MOBILE: "0921221343",
+//     EMP_DATE: "05/08/2023",
+//     STATUS: "Active",
+//     id: "0003",
+//   },
+//   {
+//     EMP_NAME: "Abebe Kebede",
+//     DEPT: "Software Development",
+//     AGE: "22",
+//     MOBILE: "0909156085",
+//     EMP_DATE: "10/10/2022",
+//     STATUS: "Active",
+//     id: "0004",
+//   },
+//   {
+//     EMP_NAME: "Abebech Kebede",
+//     DEPT: "Finance",
+//     AGE: "24",
+//     MOBILE: "0912312121",
+//     EMP_DATE: "09/07/2021",
+//     STATUS: "Active",
+//     id: "0005",
+//   },
+//   {
+//     EMP_NAME: "Abeba Kebede",
+//     DEPT: "Software Development",
+//     AGE: "25",
+//     MOBILE: "0921221343",
+//     EMP_DATE: "05/08/2023",
+//     STATUS: "Active",
+//     id: "0006",
+//   },
+//   {
+//     EMP_NAME: "Abebe Kebede",
+//     DEPT: "Software Development",
+//     AGE: "22",
+//     MOBILE: "0909156085",
+//     EMP_DATE: "10/10/2022",
+//     STATUS: "Active",
+//     id: "0007",
+//   },
+//   {
+//     EMP_NAME: "Abebech Kebede",
+//     DEPT: "Finance",
+//     AGE: "24",
+//     MOBILE: "0912312121",
+//     EMP_DATE: "09/07/2021",
+//     STATUS: "Active",
+//     id: "0008",
+//   },
+//   {
+//     EMP_NAME: "Abeba Kebede",
+//     DEPT: "Software Development",
+//     AGE: "25",
+//     MOBILE: "0921221343",
+//     EMP_DATE: "05/08/2023",
+//     STATUS: "Active",
+//     id: "0009",
+//   },
+//   // More people...
+// ];
 const headers = [
-  { id: "1", key: "EMP_NAME", label: "Employee Name" },
-  { id: "2", key: "DEPT", label: "Department" },
-  { id: "3", key: "AGE", label: "Age" },
-  { id: "4", key: "MOBILE", label: "Mobile" },
-  { id: "5", key: "EMP_DATE", label: "Employee Date" },
-  { id: "6", key: "STATUS", label: "Status" },
+  { id: "1", key: "fullname", label: "Employee Name" },
+  { id: "2", key: "deptcode", label: "Department" },
+  { id: "3", key: "date_of_birth", label: "Age" },
+  { id: "4", key: "mobile", label: "Mobile" },
+  { id: "5", key: "created_dt", label: "Employee Date" },
+  { id: "6", key: "status", label: "Status" },
 ];
 
 function classNames(...classes) {
@@ -100,7 +102,7 @@ function classNames(...classes) {
 }
 
 export default function Table() {
-  const [sort, setSort] = useState({ sortedKey: "EMP_NAME", drxn: "asc" });
+  const [sort, setSort] = useState({ sortedKey: "fullname", drxn: "asc" });
   const { data: employeeRes, isLoading, isError, error } = useEmployeesQuery();
   function handleHeaderClick(header) {
     setSort({
@@ -115,6 +117,7 @@ export default function Table() {
   }
 
   function getSortedArray(arr) {
+    console.log("array: " + arr);
     if (sort.drxn === "asc") {
       return arr.sort((a, b) =>
         a[sort.sortedKey] > b[sort.sortedKey] ? 1 : -1
@@ -122,6 +125,19 @@ export default function Table() {
     }
     return arr.sort((a, b) => (a[sort.sortedKey] > b[sort.sortedKey] ? -1 : 1));
   }
+
+  // Handle loading and error states first
+  if (isLoading) {
+    return <div>Loading employee data...</div>;
+  }
+
+  if (isError) {
+    return <div>Error loading employees: {error.message}</div>;
+  }
+
+  // Verify data structure
+  const employees = employeeRes?.data?.body || [];
+  const sortedEmployees = getSortedArray(employeeRes?.data?.body);
 
   return (
     <div className="rounded-md px-4 sm:px-6 lg:px-8 bg-white">
@@ -178,26 +194,26 @@ export default function Table() {
                 </tr>
               </thead>
               <tbody className="-z-50">
-                {getSortedArray(people).map((person, personIdx) => (
-                  <tr key={person.id}>
+                {sortedEmployees.map((employee, personIdx) => (
+                  <tr key={employee.id}>
                     <td className="whitespace-nowrap py-3.5 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8">
-                      {person.EMP_NAME}
+                      {employee.fullname}
                     </td>
                     <td className=" whitespace-nowrap px-3 py-4 text-sm text-gray-500 sm:table-cell">
-                      {person.DEPT}
+                      {employee.DEPT}
                     </td>
                     <td className=" whitespace-nowrap px-3 py-4 text-sm text-gray-500 lg:table-cell">
-                      {person.AGE}
+                      {calculateEmployeeAges(employee.date_of_birth)}
                     </td>
                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                      {person.MOBILE}
+                      {employee.mobile}
                     </td>
                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                      {person.EMP_DATE}
+                      {formatDateToDMY(employee.created_dt)}
                     </td>
                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                       <div className="px-4 bg-primary text-slate-lght w-fit rounded-md">
-                        {person.STATUS}
+                        {employee.status}
                       </div>
                     </td>
                   </tr>
